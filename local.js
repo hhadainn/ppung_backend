@@ -1,1 +1,1 @@
-test
+const app = require('./app');
