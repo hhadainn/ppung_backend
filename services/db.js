@@ -22,14 +22,14 @@ async function collection(collName) {
 }
 module.exports = {collection}
 
-// const test = async() => {
-//     try{
-//         const coll = await collection("user")
-//         const userTest = await coll.findOne({name:'hhand'})
-//         console.log(userTest)
-//     }
-//     catch(e){
-//         console.log(e)
-//     }
-// }
-// test()
+const test = async() => {
+    try{
+        const coll = await collection("user")
+        const userTest = await coll.findOne({name:'hhand'})
+        console.log(userTest)
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+test()
