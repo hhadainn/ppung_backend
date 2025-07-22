@@ -14,20 +14,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-/**
- * 랜덤한 6자리 인증번호 생성 함수
- */
-function generateVerificationCode() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-}
+
 
 /**
  * 인증 메일 발송 함수
  * @param {string} toEmail 수신자 이메일 주소
  * @returns {Promise<string>} 전송된 6자리 인증번호
  */
-async function sendVerificationEmail(toEmail) {
-  const code = generateVerificationCode();
+async function sendVerificationEmail(toEmail, code) {
+  
 
   const mailOptions = {
     from: user,
@@ -45,12 +40,5 @@ async function sendVerificationEmail(toEmail) {
     throw error;
   }
 }
-const test = async() => {
-    try{
-        await sendVerificationEmail('holove0118@gmail.com')
-    }
-    catch(e){
-        console.log(e)
-    }
-}
-// test()
+
+module.exports = {sendVerificationEmail}

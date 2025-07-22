@@ -1,32 +1,48 @@
 const express = require('express');
+const userService= require('../services/user')
 const router = express.Router()
-router.post('/test', async(req, res) => {
+router.post('/verify/email', async(req, res) => {
     try{
-        const {type, type2} = req.query
-		const {data} = req.body
-		console.log(type, type2, data)
-        return res.status(200).send({message:'다인'})
+        const {email} = req.body
+        const result= await userService.sendEmail(email)
+		return res.status(200).send({message:result})
     }
     catch(e){
         console.log(e)
     }
 })
-router.get('/test2', async(req, res) => {
+
+router.post('/check/email', async(req, res) => {
     try{
-        console.log(123)
-        return res.status(200).send({message:'success'})
+        const {code, email} = req.body
+        const result= await userService.checkCode(code, email)
+		return res.status(200).send({message:result})
     }
     catch(e){
         console.log(e)
     }
 })
-router.get('/test3', async(req, res) => {
+
+router.put('/create', async(req, res) => {
     try{
-        console.log(123)
-        return res.status(200).send({message:'success'})
+        const {email,password, name} = req.body
+        const result= await userService.createUser(email,password,name)
+		return res.status(200).send({message:result})
     }
     catch(e){
         console.log(e)
     }
 })
+
+router.post('/login', async(req, res) => {
+    try{
+        const {email,password} = req.body
+        const result= await userService.login(email,password)
+		return res.status(200).send({message:result})
+    }
+    catch(e){
+        console.log(e)
+    }
+})
+
 module.exports = router;
