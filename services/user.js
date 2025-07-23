@@ -68,6 +68,16 @@ const updateScore = async(email, score) => {
 	}
 	return 'not_user'
 }
+const getRanking = async(email) => {
+    const coll = await collection('user')
+    const userList = await coll
+	.find({ removed_at: null, score: { $gt: 0 } })
+	.sort({ score: -1 })
+	.limit(20)
+	.toArray();
+	const my = await coll.findOne({email: email, removed_at:null})
+	return {list: userList, my: my}
+}
 
 const login = async(email,password) => {
     const coll = await collection('user')
@@ -78,4 +88,4 @@ const login = async(email,password) => {
 
 
 
-module.exports = {sendEmail, checkCode,createUser, login, updateScore}
+module.exports = {sendEmail, checkCode,createUser, login, updateScore, getRanking}

@@ -54,5 +54,15 @@ router.post('/score', async(req, res) => {
         console.log(e)
     }
 })
+router.get('/rank', async(req, res) => {
+    try{
+		const {email} = req.query
+        const result= await userService.getRanking(email)
+		return res.status(200).send(result)
+    }
+    catch(e){
+        console.log(e)
+    }
+})
 
 module.exports = router;
