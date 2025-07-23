@@ -38,6 +38,16 @@ router.post('/login', async(req, res) => {
     try{
         const {email,password} = req.body
         const result= await userService.login(email,password)
+		return res.status(200).send({message:result, email: email})
+    }
+    catch(e){
+        console.log(e)
+    }
+})
+router.post('/score', async(req, res) => {
+    try{
+        const {email,score} = req.body
+        const result= await userService.updateScore(email,score)
 		return res.status(200).send({message:result})
     }
     catch(e){
