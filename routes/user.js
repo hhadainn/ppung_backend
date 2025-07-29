@@ -27,7 +27,7 @@ router.put('/create', async(req, res) => {
     try{
         const {email,password, name} = req.body
         const result= await userService.createUser(email,password,name)
-		return res.status(200).send({message:result})
+		return res.status(200).send({message:result, email: email})
     }
     catch(e){
         console.log(e)
